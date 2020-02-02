@@ -5,15 +5,21 @@ function App() {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState('react hooks');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const inputSearchRef = useRef();
 
   const getResults = async () => {
     setLoading(true);
-    const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
-    const response = await axios.get(url);
+    try {
+      const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
+      const response = await axios.get(url);
 
-    setResults(response.data.hits);
-    inputSearchRef.current.focus();
+      setResults(response.data.hits);
+      inputSearchRef.current.focus();
+    } catch(error) {
+      setError(error);
+    }
+
     setLoading(false);
   }
 
@@ -23,6 +29,11 @@ function App() {
     cbGetResults();
   }, [cbGetResults]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getResults();
+  }
+
   const handleClear = () => {
     setQuery('');
     inputSearchRef.current.focus();
@@ -30,16 +41,13 @@ function App() {
 
   return (
     <>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        getResults();
-      }}>
+      <form onSubmit={handleSubmit}>
         <input
           type='text'
           onChange={e => setQuery(e.target.value)}
           value={query}
           ref={inputSearchRef}
-          autofocus='true'
+          autoFocus
         />
 
         <input type='submit' value='Search' />
@@ -51,6 +59,8 @@ function App() {
       ) : (
         <ArticleList results={results} />
       )}
+
+      {error && <div>{error.message}</div>}
     </>
   );
 }
