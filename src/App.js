@@ -84,7 +84,7 @@ const ArticleList = memo(({ results }) => (
   <List>
     {results.map(result => (
       result.url && <ListItem key={result.objectID}>
-        <ListLink href={result.url}>{result.title}</ListLink>
+        <ListLink href={result.url} target='_blank'>{result.title}</ListLink>
       </ListItem>
     ))}
   </List>
