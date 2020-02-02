@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    height: 100vh;
     padding: 30px;
     display: flex;
     background: #1D1C40;
@@ -17,10 +18,24 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    margin: auto;
-    text-align: center;
+    width: 50vw;
+    margin: 0 auto;
   }
 `
+
+const Form = styled.form`
+  position: relative;
+  text-align: center;
+`;
+
+const Logo = styled.img`
+  text-align: left;
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
 const Input = styled.input`
   padding: 10px;
   margin-right: 10px;
@@ -47,7 +62,6 @@ const Button = styled.input`
 `;
 
 const List = styled.ul`
-  width: 50vw;
   list-style: none;
   margin-top: 40px;
   box-shadow: 2px 2px rgba(0, 0, 0, .2);
@@ -78,8 +92,7 @@ const ListLink = styled.a`
   display: block;
   color: #fff;
   text-decoration: none;
-  text-align: left;
   border-radius: 5px;
 `;
 
-export { GlobalStyle, Input, Button, List, ListItem, ListLink }
+export { GlobalStyle, Form, Logo, Input, Button, List, ListItem, ListLink }

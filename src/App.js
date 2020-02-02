@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
 import axios from 'axios';
+import Loading from './components/loading/loading';
+
 import {
   GlobalStyle,
   Input,
   Button,
   List,
   ListItem,
-  ListLink
+  ListLink,
+  Form,
+  Logo
 } from './App.styles';
 
 function App() {
@@ -49,7 +53,8 @@ function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
+        <Logo src='https://icon.now.sh/react/48/00d8ff' alt='React Logo' />
         <Input
           type='text'
           onChange={e => setQuery(e.target.value)}
@@ -60,10 +65,10 @@ function App() {
 
         <Button type='submit' value='Search' />
         <Button light type='button' value='Clear' onClick={handleClear} />
-      </form>
+      </Form>
 
       {loading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <ArticleList results={results} />
       )}
