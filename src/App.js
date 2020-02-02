@@ -24,7 +24,7 @@ function App() {
   const getResults = async () => {
     setLoading(true);
     try {
-      const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
+      const url = `https://hn.algolia.com/api/v1/search?query=${query}`;
       const response = await axios.get(url);
 
       setResults(response.data.hits);
