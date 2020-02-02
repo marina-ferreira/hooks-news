@@ -4,14 +4,17 @@ import axios from 'axios';
 function App() {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState('react hooks');
+  const [loading, setLoading] = useState(false);
   const inputSearchRef = useRef();
 
   const getResults = async () => {
+    setLoading(true);
     const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
     const response = await axios.get(url);
 
     setResults(response.data.hits);
     inputSearchRef.current.focus();
+    setLoading(false);
   }
 
   const cbGetResults = useCallback(getResults, []);
@@ -43,7 +46,11 @@ function App() {
         <input type='button' value='Clear' onClick={handleClear} />
       </form>
 
-      <ArticleList results={results} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <ArticleList results={results} />
+      )}
     </>
   );
 }
