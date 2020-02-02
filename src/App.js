@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
 import axios from 'axios';
 import Loading from './components/loading/loading';
+import ErrorMessage from './components/error-message/error-message';
 
 import {
   GlobalStyle,
@@ -73,7 +74,7 @@ function App() {
         <ArticleList results={results} />
       )}
 
-      {error && <div>{error.message}</div>}
+      {error && <ErrorMessage error={error.message} /> }
       <GlobalStyle />
     </>
   );
