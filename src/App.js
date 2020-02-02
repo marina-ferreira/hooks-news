@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
 import axios from 'axios';
+import {
+  GlobalStyle,
+  Input,
+  Button,
+  List,
+  ListItem,
+  ListLink
+} from './App.styles';
 
 function App() {
   const [results, setResults] = useState([]);
@@ -42,7 +50,7 @@ function App() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type='text'
           onChange={e => setQuery(e.target.value)}
           value={query}
@@ -50,8 +58,8 @@ function App() {
           autoFocus
         />
 
-        <input type='submit' value='Search' />
-        <input type='button' value='Clear' onClick={handleClear} />
+        <Button type='submit' value='Search' />
+        <Button light type='button' value='Clear' onClick={handleClear} />
       </form>
 
       {loading ? (
@@ -61,18 +69,19 @@ function App() {
       )}
 
       {error && <div>{error.message}</div>}
+      <GlobalStyle />
     </>
   );
 }
 
 const ArticleList = memo(({ results }) => (
-  <ul>
+  <List>
     {results.map(result => (
-      result.url && <li key={result.objectID}>
-        <a href={result.url}>{result.title}</a>
-      </li>
+      result.url && <ListItem key={result.objectID}>
+        <ListLink href={result.url}>{result.title}</ListLink>
+      </ListItem>
     ))}
-  </ul>
+  </List>
 ))
 
 export default App;
