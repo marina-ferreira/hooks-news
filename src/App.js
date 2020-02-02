@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function App() {
   const [results, setResults] = useState([])
-
-  useEffect(() => {
-    getResults();
-  }, [])
 
   const getResults = async () => {
     const url = 'http://hn.algolia.com/api/v1/search?query=reacthooks';
@@ -14,6 +10,12 @@ function App() {
 
     setResults(response.data.hits);
   }
+
+  const cbGetResults = useCallback(getResults, []);
+
+  useEffect(() => {
+    cbGetResults();
+  }, [cbGetResults]);
 
   return (
     <ul>
